@@ -1,31 +1,27 @@
-const { createClient } = require('@libsql/client');
 require('dotenv').config();
+const { createClient } = require('@libsql/client');
 
 const db = createClient({
   url: process.env.TURSO_DATABASE_URL,
   authToken: process.env.TURSO_AUTH_TOKEN,
 });
 
-// Must be async
-async function get(sql, args = []) {
-  const result = await db.execute({ sql, args });
-  return result.rows[0];
-}
+// Create users table if it doesn't exist
+(async () => {
+  try {
+    await db.execute(`
+      CREATE TABLE IF NOT EXISTS users (
+        id INTEGER PRIMARY KEY AUTOINCREMENT,
+        name TEXT NOT NULL,
+        email TEXT UNIQUE NOT NULL,
+        password TEXT NOT NULL,
+        created_at DATETIME DEFAULT CURRENT_TIMESTAMP
+      )
+    `);
+    console.log('✅ Connected to Turso DB & users table ready.');
+  } catch (err) {
+    console.error('❌ DB Connection Error:', err);
+  }
+})();
 
-// Must be async
-async function all(sql, args = []) {
-  const result = await db.execute({ sql, args });
-  return result.rows;
-}
-
-// Must be async
-async function run(sql, args = []) {
-  const result = await db.execute({ sql, args });
-  return {
-    // Convert BigInt to Number so JSON responses don't crash
-    lastInsertRowid: result.lastInsertRowid != null ? Number(result.lastInsertRowid) : null,
-    changes: result.rowsAffected,
-  };
-}
-
-module.exports = { db, get, all, run };
+module.exports = db;
