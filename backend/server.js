@@ -1,12 +1,23 @@
 require('dotenv').config();
 const express = require('express');
+const cors = require('cors');
+const path = require('path'); // <--- ADD THIS
 const bcrypt = require('bcryptjs');
 const db = require('./db');
 
 const app = express();
+app.use(cors());
 app.use(express.json());
 
-// 1. SIGN UP ROUTE
+// Serve static frontend files (HTML, CSS, JS, Images)
+app.use(express.static(path.join(__dirname, '../frontend')));
+
+// Redirect root "/" to signup.html (or login.html)
+app.get('/', (req, res) => {
+  res.redirect('/signup.html');
+});
+
+// --- SIGN UP ROUTE ---
 app.post('/api/signup', async (req, res) => {
   const { name, email, password } = req.body;
 
@@ -37,7 +48,7 @@ app.post('/api/signup', async (req, res) => {
   }
 });
 
-// 2. SIGN IN ROUTE
+// --- SIGN IN ROUTE ---
 app.post('/api/login', async (req, res) => {
   const { email, password } = req.body;
 
@@ -67,7 +78,6 @@ app.post('/api/login', async (req, res) => {
   }
 });
 
-// Local execution listener
 const PORT = process.env.PORT || 3000;
 if (process.env.NODE_ENV !== 'production') {
   app.listen(PORT, () => console.log(`🚀 Server running on http://localhost:${PORT}`));
