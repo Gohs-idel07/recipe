@@ -20,10 +20,14 @@
             <a href="about.html">About Us</a>
         </nav>
         <div class="nav-actions">
-            <input type="text" placeholder="Search Recipes" class="search-btn">
-            <button type="submit" class="add">
-                <i class="fa-solid fa-magnifying-glass"></i>
-            </button>
+            <!-- Search Wrapper with Dropdown -->
+            <div class="search-wrapper">
+                <input type="text" id="searchInput" placeholder="Search Recipes" class="search-btn" autocomplete="off">
+                <button type="button" id="searchBtn" class="add">
+                    <i class="fa-solid fa-magnifying-glass"></i>
+                </button>
+                <div id="searchResults" class="search-dropdown"></div>
+            </div>
             
             <a href="login.html">
                 <button class="add">Sign In</button>

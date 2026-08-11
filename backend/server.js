@@ -8,10 +8,15 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 
-// Serve static frontend files
-app.use(express.static(path.join(__dirname, "frontend")));
+// Serve static frontend files (Fixed path to point outside backend/ folder)
+app.use(express.static(path.join(__dirname, "../frontend")));
 
-// In-memory data fallback (Ensures Vercel serverless doesn't crash on read-only files)
+// Homepage route for local development (http://localhost:3000 -> recipe.html)
+app.get("/", (req, res) => {
+  res.sendFile(path.join(__dirname, "../frontend/recipe.html"));
+});
+
+// In-memory data fallback
 let users = [];
 let recipes = [
   {

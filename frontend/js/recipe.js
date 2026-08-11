@@ -1,47 +1,94 @@
-document.addEventListener("DOMContentLoaded", async () => {
-  const grid = document.getElementById("recipeGrid"); // Ensure your HTML contains <div id="recipeGrid"></div>
+document.addEventListener('DOMContentLoaded', () => {
+  const searchInput = document.getElementById('searchInput');
+  const searchBtn = document.getElementById('searchBtn');
+  const searchResults = document.getElementById('searchResults');
 
-  async function loadRecipes() {
-    try {
-      const res = await fetch("/api/recipes");
-      const data = await res.json();
+  // List of all available recipes and their filenames
+  const recipes = [
+    { name: 'Chicken Chow Mein', file: 'chicken-chow-mein.html' },
+    { name: 'Chicken Fried Rice', file: 'chicken-fried-rice.html' },
+    { name: 'Chicken Momo', file: 'chicken-momo.html' },
+    { name: 'Crispy Samosa', file: 'crispy-samosa.html' },
+    { name: 'Buff Wellington', file: 'buff-wellington.html' },
+    { name: 'Pasta Salad', file: 'pasata-salad.html' },
+    { name: 'Portuguese Black Pork Bacon & Eggs', file: 'portuguese-eggs.html' },
+    { name: 'Roast Buff with Caramelised Onion Gravy', file: 'roast-buff.html' },
+    { name: 'Pan-Seared Scallops', file: 'scallops.html' }
+  ];
 
-      if (!data.success || data.recipes.length === 0) {
-        grid.innerHTML = "<p>No custom recipes found. Add one!</p>";
-        return;
-      }
+  // 1. Show suggestions dropdown as user types (e.g. typing "cho")
+  function handleInput() {
+    const query = searchInput.value.toLowerCase().trim();
 
-      grid.innerHTML = "";
-      data.recipes.forEach((recipe) => {
-        const card = document.createElement("article");
-        card.className = "recipe-card";
-        card.innerHTML = `
-          <h3>${recipe.name}</h3>
-          <span class="tag">${recipe.category}</span>
-          <p>${recipe.prep_time ? recipe.prep_time + " mins" : ""}</p>
-          <button type="button" class="delete-btn" data-id="${recipe.id}">Delete</button>
-        `;
-        grid.appendChild(card);
+    if (!query) {
+      searchResults.style.display = 'none';
+      searchResults.innerHTML = '';
+      return;
+    }
+
+    // Filter matching recipes
+    const matches = recipes.filter(r => r.name.toLowerCase().includes(query));
+
+    searchResults.innerHTML = '';
+
+    if (matches.length > 0) {
+      matches.forEach(item => {
+        const option = document.createElement('div');
+        option.className = 'search-dropdown-item';
+        option.textContent = item.name;
+
+        // Redirect when option is clicked
+        option.addEventListener('click', () => {
+          window.location.href = item.file;
+        });
+
+        searchResults.appendChild(option);
       });
-    } catch (err) {
-      grid.innerHTML = "<p>Error loading recipes from server.</p>";
+    } else {
+      // Show "Not available" if query matches nothing
+      const noMatch = document.createElement('div');
+      noMatch.className = 'search-dropdown-item no-result';
+      noMatch.textContent = 'Not available';
+      searchResults.appendChild(noMatch);
+    }
+
+    searchResults.style.display = 'block';
+  }
+
+  // 2. Search on Magnifying Glass Icon Click or Enter Key
+  function handleSubmit() {
+    const query = searchInput.value.toLowerCase().trim();
+    if (!query) return;
+
+    const matched = recipes.find(r => r.name.toLowerCase().includes(query));
+
+    if (matched) {
+      window.location.href = matched.file;
+    } else {
+      searchResults.innerHTML = '<div class="search-dropdown-item no-result">Not available</div>';
+      searchResults.style.display = 'block';
     }
   }
 
-  // Delegated listener for delete buttons
-  if (grid) {
-    grid.addEventListener("click", async (e) => {
-      const deleteBtn = e.target.closest(".delete-btn");
-      if (deleteBtn) {
-        const id = deleteBtn.dataset.id;
-        if (!confirm("Are you sure you want to delete this recipe?")) return;
-
-        const res = await fetch(`/api/recipes/${id}`, { method: "DELETE" });
-        const data = await res.json();
-        if (data.success) await loadRecipes();
+  // Event Listeners
+  if (searchInput) {
+    searchInput.addEventListener('input', handleInput);
+    searchInput.addEventListener('keypress', (e) => {
+      if (e.key === 'Enter') {
+        e.preventDefault();
+        handleSubmit();
       }
     });
-
-    await loadRecipes();
   }
+
+  if (searchBtn) {
+    searchBtn.addEventListener('click', handleSubmit);
+  }
+
+  // Hide dropdown list when clicking anywhere outside search area
+  document.addEventListener('click', (e) => {
+    if (!e.target.closest('.search-wrapper')) {
+      if (searchResults) searchResults.style.display = 'none';
+    }
+  });
 });
