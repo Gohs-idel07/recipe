@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Add Recipe - StudentRecipe</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <link rel="stylesheet" href="css/add-recipe.css">
+</head>
+<body>
+
+  <!-- Navigation -->
+  <header class="navbar">
+    <nav>
+      <a href="recipe.html">Home</a>
+      <a href="browserecipe.html">Browse Recipe</a>
+      <a href="add-recipe.html" class="active">Add Recipe</a>
+      <a href="about.html">About Us</a>
+    </nav>
+  </header>
+
+  <main class="page-container">
+
+    <!-- Add Recipe Form -->
+    <section>
+      <h2 class="section-title">Add a New Recipe</h2>
+      <div class="form-card">
+        <form id="addRecipeForm" class="form-grid">
+          
+          <div class="form-group">
+            <label for="name">Recipe Title</label>
+            <input type="text" id="name" required>
+          </div>
+
+          <div class="form-group">
+            <label for="category">Category</label>
+            <select id="category" required>
+              <option value="">Select Category</option>
+              <option value="Dinner">Dinner</option>
+              <option value="Lunch">Lunch</option>
+              <option value="Breakfast">Breakfast</option>
+              <option value="Dessert">Dessert</option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label for="prepTime">Prep Time (mins)</label>
+            <input type="number" id="prepTime">
+          </div>
+
+          <div class="form-group">
+            <label for="servings">Servings</label>
+            <input type="number" id="servings">
+          </div>
+
+          <div class="form-group full-width">
+            <label for="imageUrl">Image URL (optional)</label>
+            <input type="url" id="imageUrl">
+          </div>
+
+          <div class="form-group full-width">
+            <label for="ingredients">Ingredients (one per line)</label>
+            <textarea id="ingredients" required></textarea>
+          </div>
+
+          <div class="form-group full-width">
+            <label for="instructions">Instructions (one per line)</label>
+            <textarea id="instructions" required></textarea>
+          </div>
+
+          <button type="submit" class="submit-btn"><i class="fa-solid fa-plus"></i> Save Recipe</button>
+          
+          <div id="statusMessage" class="full-width"></div>
+        </form>
+      </div>
+    </section>
+
+    <!-- Saved Recipes Grid -->
+    <section>
+      <h2 class="section-title">Your Saved Recipes</h2>
+      <div id="savedRecipesGrid" class="recipes-grid"></div>
+    </section>
+
+  </main>
+
+  <!-- Recipe Details Modal -->
+  <div id="recipeModal" class="modal">
+    <div class="modal-content">
+      <span class="close-btn">&times;</span>
+      <h2 id="modalTitle"></h2>
+      <p id="modalCategory" class="modal-meta"></p>
+      <div id="modalImageContainer"></div>
+      
+      <div class="modal-section">
+        <h3>Ingredients</h3>
+        <ul id="modalIngredients"></ul>
+      </div>
+
+      <div class="modal-section">
+        <h3>Instructions</h3>
+        <ol id="modalInstructions"></ol>
+      </div>
+    </div>
+  </div>
+
+  <footer>
+    <p>&copy; 2026 StudentRecipe. All rights reserved.</p>
+  </footer>
+
+  <script src="js/add-recipe.js"></script>
+</body>
+</html>
