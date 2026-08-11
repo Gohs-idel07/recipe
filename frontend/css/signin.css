@@ -1,277 +1,152 @@
-:root {
-    --bg-page: #f8f9fa;
-    --card-bg: #ffffff;
-    --accent: #e67e22;
-    --accent-dark: #d35400;
-    --ink: #222222;
-    --muted: #666666;
-    --line: #e0e0e0;
-    --font-family: 'Poppins', sans-serif;
-}
-
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-    font-family: var(--font-family);
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
 body {
-    background-color: var(--bg-page);
-    color: var(--ink);
+    /* Soft orange-gold background gradient */
+    background: linear-gradient(135deg, #FF6B00 0%, #FFA834 100%);
     min-height: 100vh;
     display: flex;
-    flex-direction: column;
-}
-
-/* ==========================================
-   Header & Navigation Bar
-   ========================================== */
-.navbar {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    background-color: #ffffff;
-    padding: 1.2rem 5%;
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
-    position: sticky;
-    top: 0;
-    z-index: 1000;
-}
-
-.navbar nav {
-    display: flex;
-    gap: 2rem;
-}
-
-.navbar nav a {
-    color: #333;
-    text-decoration: none;
-    font-weight: 500;
-    font-size: 1rem;
-    transition: color 0.3s ease;
-}
-
-.navbar nav a:hover,
-.navbar nav a.active {
-    color: var(--accent);
-    font-weight: 600;
-}
-
-.nav-actions {
-    display: flex;
-    align-items: center;
-    gap: 0.8rem;
-}
-
-.search-btn {
-    padding: 0.5rem 1rem;
-    border: 1px solid var(--line);
-    border-radius: 20px;
-    outline: none;
-    font-size: 0.9rem;
-    transition: border-color 0.3s ease;
-}
-
-.search-btn:focus {
-    border-color: var(--accent);
-}
-
-.add {
-    background-color: var(--accent);
-    color: white;
-    border: none;
-    padding: 0.5rem 1.2rem;
-    border-radius: 20px;
-    cursor: pointer;
-    font-weight: 500;
-    font-size: 0.9rem;
-    transition: background-color 0.3s ease;
-}
-
-.add:hover {
-    background-color: var(--accent-dark);
-}
-
-/* ==========================================
-   Login Wrapper & Split Card
-   ========================================== */
-.main-wrapper {
-    flex: 1;
-    display: flex;
-    align-items: center;
     justify-content: center;
-    padding: 40px 20px;
-}
-
-.card {
-    width: 100%;
-    max-width: 900px;
-    background: var(--card-bg);
-    border-radius: 16px;
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    overflow: hidden;
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
-}
-
-.form-side {
-    padding: 48px 40px;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-}
-
-h1 {
-    font-size: 28px;
-    font-weight: 700;
-    margin-bottom: 8px;
-    color: var(--ink);
-}
-
-.subtext {
-    margin-bottom: 28px;
-    color: var(--muted);
-    font-size: 14px;
-}
-
-.subtext a {
-    color: var(--accent);
-    font-weight: 600;
-    text-decoration: none;
-}
-
-.subtext a:hover {
-    text-decoration: underline;
-}
-
-label {
-    display: block;
-    font-size: 12px;
-    font-weight: 600;
-    text-transform: uppercase;
-    letter-spacing: 0.05em;
-    color: var(--muted);
-    margin-bottom: 6px;
-}
-
-.field {
-    margin-bottom: 18px;
-}
-
-input[type="text"],
-input[type="email"],
-input[type="password"] {
-    width: 100%;
-    padding: 12px 14px;
-    border-radius: 8px;
-    border: 1.5px solid var(--line);
-    background: #fff;
-    font-size: 14px;
-    font-family: var(--font-family);
-    color: var(--ink);
-    outline: none;
-    transition: border-color 0.2s ease, box-shadow 0.2s ease;
-}
-
-input::placeholder {
-    color: #aaa;
-}
-
-input:focus {
-    border-color: var(--accent);
-    box-shadow: 0 0 0 3px rgba(230, 126, 34, 0.15);
-}
-
-.checkbox-row {
-    display: flex;
     align-items: center;
-    gap: 8px;
-    margin: 4px 0 24px;
-}
-
-.checkbox-row input {
-    accent-color: var(--accent);
-    cursor: pointer;
-}
-
-.checkbox-row p {
-    margin: 0;
-    font-size: 13px;
-    color: var(--muted);
-}
-
-button[type="submit"],
-.btn-primary {
-    appearance: none;
-    border: none;
-    background-color: var(--accent);
-    color: #fff;
-    font-family: var(--font-family);
-    font-size: 15px;
-    font-weight: 600;
-    padding: 12px;
-    border-radius: 8px;
-    cursor: pointer;
-    transition: background-color 0.2s ease, transform 0.15s ease;
-    box-shadow: 0 4px 12px rgba(230, 126, 34, 0.25);
-    width: 100%;
-}
-
-button[type="submit"]:hover,
-.btn-primary:hover {
-    background-color: var(--accent-dark);
-    transform: translateY(-1px);
-}
-
-button[type="submit"]:active,
-.btn-primary:active {
-    transform: translateY(0);
-}
-
-/* Illustration Side */
-.illustration-side {
-    position: relative;
-    background: #fdf8f4;
-    border-left: 1px solid #f2e3d5;
-    display: flex;
-    align-items: center;
-    justify-content: center;
     padding: 20px;
 }
 
-.illustration-side svg,
-.illustration-side img {
-    max-width: 80%;
-    height: auto;
+.login-wrapper {
+    width: 100%;
+    max-width: 400px;
 }
 
-/* Footer */
-footer {
+/* Clean Crisp White Card */
+.login-card {
+    background: #ffffff;
+    padding: 40px 32px;
+    border-radius: 20px;
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.15);
     text-align: center;
-    padding: 1.5rem;
-    background-color: #1a1a1a;
-    color: #ffffff;
-    font-size: 0.9rem;
-    margin-top: auto;
 }
 
-/* Mobile Responsive */
-@media (max-width: 768px) {
-    .navbar {
-        flex-direction: column;
-        gap: 1rem;
-    }
-    
-    .card {
-        grid-template-columns: 1fr;
-    }
-    
-    .illustration-side {
-        display: none;
-    }
-    
-    .form-side {
-        padding: 32px 24px;
-    }
+.login-card h1 {
+    color: #2D3748;
+    font-size: 28px;
+    font-weight: 700;
+    margin-bottom: 6px;
+}
+
+.login-card p {
+    color: #718096;
+    font-size: 14px;
+    margin-bottom: 24px;
+}
+
+.input-group {
+    text-align: left;
+    margin-bottom: 18px;
+}
+
+.input-group label {
+    display: block;
+    font-size: 13px;
+    font-weight: 600;
+    color: #4A5568;
+    margin-bottom: 6px;
+}
+
+.input-group input {
+    width: 100%;
+    padding: 12px 16px;
+    border: 2px solid #EDF2F7;
+    border-radius: 10px;
+    font-size: 15px;
+    color: #2D3748;
+    background-color: #FAFAFA;
+    transition: all 0.3s ease;
+}
+
+/* Focus state with orange outline glow */
+.input-group input:focus {
+    outline: none;
+    border-color: #FF6B00;
+    background-color: #ffffff;
+    box-shadow: 0 0 0 3px rgba(255, 107, 0, 0.15);
+}
+
+.form-options {
+    text-align: right;
+    margin-bottom: 20px;
+}
+
+.forgot-link {
+    color: #FF6B00;
+    font-size: 13px;
+    text-decoration: none;
+    font-weight: 500;
+}
+
+.forgot-link:hover {
+    color: #E65100;
+    text-decoration: underline;
+}
+
+/* Primary Vibrant Orange Button */
+.btn-login, .btn {
+    width: 100%;
+    padding: 14px;
+    background: linear-gradient(135deg, #FF6B00 0%, #FF8800 100%);
+    color: #ffffff;
+    border: none;
+    border-radius: 10px;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    box-shadow: 0 8px 20px rgba(255, 107, 0, 0.35);
+    transition: all 0.3s ease;
+}
+
+.btn-login:hover, .btn:hover {
+    background: linear-gradient(135deg, #E65100 0%, #FF6B00 100%);
+    box-shadow: 0 10px 25px rgba(255, 107, 0, 0.45);
+    transform: translateY(-2px);
+}
+
+.btn-login:active, .btn:active {
+    transform: translateY(0);
+}
+
+/* Error message box */
+#errorMessage {
+    background-color: #FFF5F5;
+    border: 1px solid #FEB2B2;
+    color: #C53030;
+    padding: 10px;
+    border-radius: 8px;
+    font-size: 13px;
+    margin-bottom: 15px;
+}
+
+/* Footer Links */
+.signup-footer {
+    margin-top: 24px;
+    padding-top: 18px;
+    border-top: 1px solid #EDF2F7;
+}
+
+.signup-footer p {
+    margin-bottom: 0;
+    font-size: 14px;
+    color: #718096;
+}
+
+.signup-footer a {
+    color: #FF6B00;
+    font-weight: 600;
+    text-decoration: none;
+}
+
+.signup-footer a:hover {
+    color: #E65100;
+    text-decoration: underline;
 }

@@ -1,154 +1,152 @@
-/* --- Reset & Basics --- */
 * {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-  font-family:
-    -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial,
-    sans-serif;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
-body,
-html {
-  height: 100%;
-  width: 100%;
+body {
+    /* Soft orange-gold background gradient */
+    background: linear-gradient(135deg, #FF6B00 0%, #FFA834 100%);
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
 }
 
-/* --- Layout --- */
 .login-wrapper {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  min-height: 100vh;
-  /* Use the same deep blue background from your image */
-  background-color: #00005c;
-  background-image:
-    radial-gradient(at 47% 33%, #3d3d8a 0px, transparent 50%),
-    radial-gradient(at 82% 65%, #1a1a78 0px, transparent 50%);
+    width: 100%;
+    max-width: 400px;
 }
 
-/* --- The Glass Card --- */
+/* Clean Crisp White Card */
 .login-card {
-  background: rgba(255, 255, 255, 0.1); /* Semi-transparent white */
-  backdrop-filter: blur(10px); /* Creates the "frosted glass" effect */
-  border: 1px solid rgba(255, 255, 255, 0.2);
-  border-radius: 20px;
-  padding: 40px;
-  width: 100%;
-  max-width: 420px; /* Good size for a login form */
-  box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
-  color: white;
-  text-align: center;
+    background: #ffffff;
+    padding: 40px 32px;
+    border-radius: 20px;
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.15);
+    text-align: center;
 }
 
 .login-card h1 {
-  font-size: 32px;
-  font-weight: 700;
-  margin-bottom: 10px;
+    color: #2D3748;
+    font-size: 28px;
+    font-weight: 700;
+    margin-bottom: 6px;
 }
 
 .login-card p {
-  font-size: 16px;
-  color: rgba(255, 255, 255, 0.8);
-  margin-bottom: 30px;
+    color: #718096;
+    font-size: 14px;
+    margin-bottom: 24px;
 }
 
-/* --- Form Elements --- */
 .input-group {
-  text-align: left;
-  margin-bottom: 20px;
+    text-align: left;
+    margin-bottom: 18px;
 }
 
 .input-group label {
-  display: block;
-  font-size: 14px;
-  margin-bottom: 8px;
-  color: rgba(255, 255, 255, 0.9);
+    display: block;
+    font-size: 13px;
+    font-weight: 600;
+    color: #4A5568;
+    margin-bottom: 6px;
 }
 
 .input-group input {
-  width: 100%;
-  padding: 15px;
-  background: rgba(255, 255, 255, 0.1);
-  border: 1px solid rgba(255, 255, 255, 0.2);
-  border-radius: 10px;
-  color: white;
-  font-size: 16px;
-  transition: all 0.3s ease;
+    width: 100%;
+    padding: 12px 16px;
+    border: 2px solid #EDF2F7;
+    border-radius: 10px;
+    font-size: 15px;
+    color: #2D3748;
+    background-color: #FAFAFA;
+    transition: all 0.3s ease;
 }
 
-/* Input focus effect */
+/* Focus state with orange outline glow */
 .input-group input:focus {
-  outline: none;
-  border-color: #4facfe;
-  background: rgba(255, 255, 255, 0.2);
-  box-shadow: 0 0 10px rgba(79, 172, 254, 0.5);
-}
-
-/* Placeholder color */
-::placeholder {
-  color: rgba(255, 255, 255, 0.4);
+    outline: none;
+    border-color: #FF6B00;
+    background-color: #ffffff;
+    box-shadow: 0 0 0 3px rgba(255, 107, 0, 0.15);
 }
 
 .form-options {
-  text-align: right;
-  margin-bottom: 25px;
+    text-align: right;
+    margin-bottom: 20px;
 }
 
 .forgot-link {
-  font-size: 14px;
-  color: #4facfe; /* Nice blue link color */
-  text-decoration: none;
-  transition: color 0.2s ease;
+    color: #FF6B00;
+    font-size: 13px;
+    text-decoration: none;
+    font-weight: 500;
 }
 
 .forgot-link:hover {
-  text-decoration: underline;
-  color: #8fd3f4;
+    color: #E65100;
+    text-decoration: underline;
 }
 
-/* --- Button --- */
-.btn-login {
-  width: 100%;
-  padding: 15px;
-  border: none;
-  border-radius: 10px;
-  background: linear-gradient(
-    to right,
-    #4facfe,
-    #00f2fe
-  ); /* Modern gradient button */
-  color: white;
-  font-size: 18px;
-  font-weight: 600;
-  cursor: pointer;
-  transition:
-    transform 0.1s ease,
-    box-shadow 0.3s ease;
-  box-shadow: 0 4px 15px rgba(0, 242, 254, 0.4);
+/* Primary Vibrant Orange Button */
+.btn-login, .btn {
+    width: 100%;
+    padding: 14px;
+    background: linear-gradient(135deg, #FF6B00 0%, #FF8800 100%);
+    color: #ffffff;
+    border: none;
+    border-radius: 10px;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    box-shadow: 0 8px 20px rgba(255, 107, 0, 0.35);
+    transition: all 0.3s ease;
 }
 
-.btn-login:hover {
-  box-shadow: 0 6px 20px rgba(0, 242, 254, 0.6);
+.btn-login:hover, .btn:hover {
+    background: linear-gradient(135deg, #E65100 0%, #FF6B00 100%);
+    box-shadow: 0 10px 25px rgba(255, 107, 0, 0.45);
+    transform: translateY(-2px);
 }
 
-.btn-login:active {
-  transform: scale(0.98); /* Button clicks down slightly */
+.btn-login:active, .btn:active {
+    transform: translateY(0);
 }
 
-/* --- Footer --- */
+/* Error message box */
+#errorMessage {
+    background-color: #FFF5F5;
+    border: 1px solid #FEB2B2;
+    color: #C53030;
+    padding: 10px;
+    border-radius: 8px;
+    font-size: 13px;
+    margin-bottom: 15px;
+}
+
+/* Footer Links */
 .signup-footer {
-  margin-top: 30px;
-  font-size: 14px;
-  color: rgba(255, 255, 255, 0.8);
+    margin-top: 24px;
+    padding-top: 18px;
+    border-top: 1px solid #EDF2F7;
+}
+
+.signup-footer p {
+    margin-bottom: 0;
+    font-size: 14px;
+    color: #718096;
 }
 
 .signup-footer a {
-  color: #4facfe;
-  text-decoration: none;
-  font-weight: 600;
+    color: #FF6B00;
+    font-weight: 600;
+    text-decoration: none;
 }
 
 .signup-footer a:hover {
-  text-decoration: underline;
+    color: #E65100;
+    text-decoration: underline;
 }
