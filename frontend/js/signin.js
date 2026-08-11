@@ -1,68 +1,45 @@
-document.addEventListener('DOMContentLoaded', () => {
-  const form = document.getElementById('loginForm');
+// Dynamic host detection: uses localhost:3000 if running via Live Server (port 5500), otherwise uses relative paths on Vercel
+const API_BASE = (window.location.hostname === "localhost" || window.location.hostname === "127.0.0.1") && window.location.port !== "3000"
+  ? "http://localhost:3000"
+  : "";
 
-  if (!form) {
-    console.error('❌ Could not find #loginForm in login.html');
-    return;
-  }
+document.addEventListener("DOMContentLoaded", () => {
+  const signinForm = document.getElementById("signinForm") || document.getElementById("loginForm");
+  const errorMessage = document.getElementById("errorMessage");
 
-  // Check if #message exists; if not, inject one dynamically above the submit button
-  let messageBox = document.getElementById('message');
-  if (!messageBox) {
-    messageBox = document.createElement('p');
-    messageBox.id = 'message';
-    messageBox.style.marginTop = '12px';
-    messageBox.style.marginBottom = '12px';
-    messageBox.style.fontWeight = 'bold';
-    messageBox.style.textAlign = 'center';
+  if (signinForm) {
+    signinForm.addEventListener("submit", async (e) => {
+      e.preventDefault();
 
-    const submitBtn = form.querySelector('.btn-login') || form.querySelector('button[type="submit"]');
-    if (submitBtn) {
-      form.insertBefore(messageBox, submitBtn);
-    } else {
-      form.appendChild(messageBox);
-    }
-  }
+      const email = document.getElementById("email").value.trim();
+      const password = document.getElementById("password").value;
 
-  form.addEventListener('submit', async (e) => {
-    e.preventDefault();
+      try {
+        const response = await fetch(`${API_BASE}/api/login`, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ email, password })
+        });
 
-    messageBox.textContent = 'Signing in...';
-    messageBox.style.color = '#555';
+        const data = await response.json();
 
-    const email = document.getElementById('email').value.trim();
-    const password = document.getElementById('password').value;
-
-    // Auto-detect backend port if running on local Live Server vs Express vs Vercel
-    const API_BASE_URL = (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1') && window.location.port !== '3000'
-      ? 'http://localhost:3000'
-      : '';
-
-    try {
-      const res = await fetch(`${API_BASE_URL}/api/login`, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ email, password })
-      });
-
-      const data = await res.json();
-
-      messageBox.textContent = data.message;
-      messageBox.style.color = data.success ? '#1C8A4B' : '#D6304A';
-
-      if (data.success) {
-        // Save user data for recipe.html header
-        localStorage.setItem('user', JSON.stringify(data.user));
-
-        // Redirect to recipe page after 1 second
-        setTimeout(() => {
-          window.location.href = 'recipe.html';
-        }, 1000);
+        if (response.ok && data.success) {
+          localStorage.setItem("user", JSON.stringify(data.user));
+          window.location.href = "recipe.html";
+        } else {
+          showError(data.message || "Invalid email or password.");
+        }
+      } catch (err) {
+        showError("Could not connect to server.");
       }
-    } catch (err) {
-      console.error('Login Error:', err);
-      messageBox.textContent = 'Could not connect to server.';
-      messageBox.style.color = '#D6304A';
+    });
+  }
+
+  function showError(msg) {
+    if (errorMessage) {
+      errorMessage.textContent = msg;
+      errorMessage.style.display = "block";
+      errorMessage.style.color = "#ff4d4d";
     }
-  });
+  }
 });

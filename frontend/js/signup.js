@@ -1,42 +1,45 @@
-document.addEventListener('DOMContentLoaded', () => {
-  const form = document.getElementById('signupForm');
-  const messageBox = document.getElementById('message');
+const API_BASE = (window.location.hostname === "localhost" || window.location.hostname === "127.0.0.1") && window.location.port !== "3000"
+  ? "http://localhost:3000"
+  : "";
 
-  form?.addEventListener('submit', async (e) => {
-    e.preventDefault();
-    messageBox.textContent = '';
+document.addEventListener("DOMContentLoaded", () => {
+  const signupForm = document.getElementById("signupForm");
+  const errorMessage = document.getElementById("errorMessage");
 
-    const name = document.getElementById('name').value.trim();
-    const email = document.getElementById('email').value.trim();
-    const password = document.getElementById('password').value;
-    const confirmPassword = document.getElementById('confirmPassword').value;
+  if (signupForm) {
+    signupForm.addEventListener("submit", async (e) => {
+      e.preventDefault();
 
-    if (password !== confirmPassword) {
-      return showMessage('Passwords do not match.', 'error');
-    }
+      const username = document.getElementById("username")?.value.trim();
+      const email = document.getElementById("email").value.trim();
+      const password = document.getElementById("password").value;
 
-    try {
-      const res = await fetch('/api/signup', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ name, email, password })
-      });
+      try {
+        const response = await fetch(`${API_BASE}/api/signup`, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ username, email, password })
+        });
 
-      const data = await res.json();
-      showMessage(data.message, data.success ? 'success' : 'error');
+        const data = await response.json();
 
-      if (data.success) {
-        form.reset();
-        setTimeout(() => { window.location.href = 'login.html'; }, 1200);
+        if (response.ok && data.success) {
+          alert("Account created successfully! Please sign in.");
+          window.location.href = "signin.html";
+        } else {
+          showError(data.message || "Sign up failed.");
+        }
+      } catch (err) {
+        showError("Could not connect to server.");
       }
-    } catch (err) {
-      showMessage('Could not connect to server.', 'error');
-    }
-  });
+    });
+  }
 
-  function showMessage(msg, type) {
-    if (!messageBox) return;
-    messageBox.textContent = msg;
-    messageBox.style.color = type === 'error' ? '#D6304A' : '#1C8A4B';
+  function showError(msg) {
+    if (errorMessage) {
+      errorMessage.textContent = msg;
+      errorMessage.style.display = "block";
+      errorMessage.style.color = "#ff4d4d";
+    }
   }
 });
